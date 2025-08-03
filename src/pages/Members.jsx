@@ -1,38 +1,194 @@
-import React, { useEffect } from 'react';
+// src/pages/Members.jsx
+import React, { useEffect, useState } from 'react';
 import logo from '../logo.svg';
 
 function Members() {
+  // 멤버 데이터 (필터링에 필요한 정보를 포함하도록 확장)
+  const allMembers = [
+    {
+      name: '김민준',
+      role: '팀장',
+      description: '프론트엔드 개발 전문가',
+      tags: ['React', 'JavaScript', 'Node.js', '프론트엔드'],
+      profileImageUrl: 'https://via.placeholder.com/120/A8C5E6/FFFFFF?text=Member1',
+      githubUrl: 'https://github.com/kimminjun',
+      portfolioUrl: 'https://portfolio.kimminjun.com',
+      status: 'current'
+    },
+    {
+      name: '이서연',
+      role: 'AI',
+      description: '머신러닝과 백엔드 개발',
+      tags: ['Python', 'AI/ML', 'Django', '백엔드'],
+      profileImageUrl: 'https://via.placeholder.com/120/C5A8E6/FFFFFF?text=Member2',
+      githubUrl: 'https://github.com/leeseoyeon',
+      portfolioUrl: 'https://portfolio.leeseoyeon.com',
+      status: 'current'
+    },
+    {
+      name: '박지훈',
+      role: '백엔드',
+      description: '서버 개발 및 데이터베이스 설계',
+      tags: ['Java', 'Spring', 'MySQL', '백엔드'],
+      profileImageUrl: 'https://via.placeholder.com/120/A8E6C5/FFFFFF?text=Member3',
+      githubUrl: 'https://github.com/parkjihun',
+      portfolioUrl: 'https://portfolio.parkjihun.com',
+      status: 'current'
+    },
+    {
+      name: '최예원',
+      role: '모바일',
+      description: 'iOS/Android 앱 개발',
+      tags: ['Swift', 'Flutter', 'Kotlin', '모바일'],
+      profileImageUrl: 'https://via.placeholder.com/120/E6A8C5/FFFFFF?text=Member4',
+      githubUrl: 'https://github.com/choiyewon',
+      portfolioUrl: 'https://portfolio.choiyewon.com',
+      status: 'current'
+    },
+    {
+      name: '정수현',
+      role: '프론트엔드',
+      description: 'UI/UX 설계 및 웹 개발',
+      tags: ['Vue.js', 'JavaScript', 'CSS', '프론트엔드'],
+      profileImageUrl: 'https://via.placeholder.com/120/A8C5E6/FFFFFF?text=Member5',
+      githubUrl: 'https://github.com/jeongsuhyun',
+      portfolioUrl: 'https://portfolio.jeongsuhyun.com',
+      status: 'current'
+    },
+    {
+      name: '한동민',
+      role: 'AI',
+      description: '딥러닝 모델 개발',
+      tags: ['Python', 'TensorFlow', 'PyTorch', 'AI/ML'],
+      profileImageUrl: 'https://via.placeholder.com/120/C5A8E6/FFFFFF?text=Member6',
+      githubUrl: 'https://github.com/handongmin',
+      portfolioUrl: 'https://portfolio.handongmin.com',
+      status: 'current'
+    },
+    {
+      name: '김명수',
+      role: '프론트엔드',
+      description: '프론트엔드 개발자 | 네이버 근무',
+      tags: ['React', 'JavaScript', 'TypeScript', '프론트엔드'],
+      profileImageUrl: 'https://via.placeholder.com/120/D8BFD8/FFFFFF?text=Alumni1',
+      githubUrl: 'https://github.com/kimmyungsoo',
+      portfolioUrl: 'https://link.kimmyungsoo.com',
+      status: 'alumni'
+    },
+    {
+      name: '박은지',
+      role: '백엔드',
+      description: '백엔드 개발자 | 카카오 근무',
+      tags: ['Java', 'Spring', 'AWS', '백엔드'],
+      profileImageUrl: 'https://via.placeholder.com/120/A8D8D8/FFFFFF?text=Alumni2',
+      githubUrl: 'https://github.com/parkeunji',
+      portfolioUrl: 'https://link.parkeunji.com',
+      status: 'alumni'
+    },
+    {
+      name: '최현우',
+      role: 'AI',
+      description: 'AI 연구원 | 삼성전자 근무',
+      tags: ['Python', 'Machine Learning', 'Data Science', 'AI'],
+      profileImageUrl: 'https://via.placeholder.com/120/E6C5A8/FFFFFF?text=Alumni3',
+      githubUrl: 'https://github.com/choihyunwoo',
+      portfolioUrl: 'https://link.choihyunwoo.com',
+      status: 'alumni'
+    },
+  ];
+
+  // 필터링 상태 관리
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterRole, setFilterRole] = useState('');
+  const [activeTag, setActiveTag] = useState('');
+
+  // 스크롤 애니메이션 효과
   useEffect(() => {
-    // 스크롤 이벤트에 따라 요소가 뷰포트에 들어오면 애니메이션을 적용하기 위한 IntersectionObserver 설정
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px',
     };
 
-    // IntersectionObserver 인스턴스 생성
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          // 요소가 뷰포트에 들어왔을 때 'visible' 클래스를 추가하여 애니메이션을 실행
-          observer.unobserve(entry.target); 
-        } else {
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    // 모든 .scroll-fade 요소 관찰
     const scrollFadeElements = document.querySelectorAll('.scroll-fade');
     scrollFadeElements.forEach((el) => {
       observer.observe(el);
     });
 
-    // 컴포넌트 언마운트 시 클린업
     return () => {
-      // 컴포넌트가 언마운트될 때 모든 관찰을 중지
-      observer.disconnect(); 
+      observer.disconnect();
     };
-  }, []); // 빈 배열을 두어 컴포넌트 마운트 시 한 번만 실행
+  }, [searchTerm, filterRole, activeTag]);
+
+  // 필터링된 멤버 목록 계산
+  const filteredMembers = allMembers.filter((member) => {
+    const nameMatch = member.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const tagsMatch = member.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    const searchCombined = nameMatch || tagsMatch;
+
+    const roleMatch = !filterRole || member.role === filterRole;
+    const tagButtonMatch = !activeTag || member.tags.includes(activeTag);
+
+    return searchCombined && roleMatch && tagButtonMatch;
+  });
+
+  const currentMembers = filteredMembers.filter(member => member.status === 'current');
+  const alumniMembers = filteredMembers.filter(member => member.status === 'alumni');
+
+
+  // 태그 버튼 클릭 핸들러
+  const handleTagClick = (tag) => {
+    setActiveTag(prevTag => (prevTag === tag ? '' : tag));
+  };
+
+  // 태그 버튼의 동적 CSS 클래스 생성 (members2.html의 색상 매핑)
+  const getTagBgClass = (tag) => {
+    switch (tag) {
+        case 'React':
+        case 'JavaScript':
+        case 'TypeScript':
+        case 'CSS':
+        case 'MySQL':
+        case 'Data Science':
+            return 'bg-blue-900 text-blue-300';
+        case 'Python':
+        case 'TensorFlow':
+        case 'PyTorch':
+        case 'AI/ML':
+        case 'Django':
+        case 'Spring':
+        case 'AWS':
+        case 'Machine Learning':
+            return 'bg-purple-900 text-purple-300';
+        case 'Node.js':
+        case 'Spring':
+            return 'bg-green-900 text-green-300';
+        case 'Swift':
+        case 'Flutter':
+        case 'Kotlin':
+        case '모바일':
+            return 'bg-pink-900 text-pink-300';
+        case 'Java':
+            return 'bg-red-900 text-red-300';
+        case 'Vue.js':
+            return 'bg-teal-900 text-teal-300';
+        case 'AI':
+        case 'AI/ML':
+        case 'Machine Learning':
+        case 'Data Science':
+            return 'bg-orange-900 text-orange-300';
+        default:
+            return 'bg-gray-700 text-gray-300';
+    }
+};
 
   return (
     <>
@@ -46,127 +202,150 @@ function Members() {
               <h1 className="orbitron text-5xl md:text-7xl font-black mb-4">
                 <span className="gradient-text">TCP Members</span>
               </h1>
-              <p className="orbitron text-xl md:text-2xl text-gray-300 mb-6">Team Crazy Performance의 빛나는 얼굴들</p>
+              <p className="orbitron text-xl md:text-2xl text-gray-300 mb-6">Team Crazy Performance</p>
               <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-                TCP를 함께 만들어가는 열정적인 멤버들을 소개합니다. 각자의 분야에서 최고의 퍼포먼스를 보여주고 있습니다.
+                TCP 팀의 멤버들을 만나보세요. 검색과 필터로 원하는 멤버를 찾아보세요.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="current-members" className="py-16 bg-gradient-to-b from-transparent to-gray-900">
+      {/* Search and Filter Section */}
+      <section className="py-8 bg-gradient-to-b from-transparent to-gray-900">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="orbitron text-3xl md:text-4xl font-bold gradient-text mb-4">활동 멤버</h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              현재 TCP에서 활발히 활동하며 동아리의 성장을 이끌고 있는 멤버들입니다.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              <div className="scroll-fade member-card p-6 rounded-xl text-center card-hover">
-                  <div className="img-container mx-auto">
-                      <img src="https://via.placeholder.com/120/A8C5E6/FFFFFF?text=Member1" alt="Member 1 Profile" />
-                  </div>
-                  <h3 className="orbitron text-xl font-bold mb-2 text-white">김민준</h3>
-                  <p className="text-blue-300 mb-2">프론트엔드 개발자</p>
-                  <p className="text-sm text-gray-400">웹 인터페이스 디자인 및 개발 전문</p>
-                  <div className="flex justify-center space-x-4 mt-4">
-                      <a href="https://github.com/kimminjun" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400"><i className="fab fa-github"></i></a>
-                      <a href="https://portfolio.kimminjun.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400"><i className="fas fa-link"></i></a>
-                  </div>
+          <div className="mb-10 p-6 bg-gray-900 rounded-xl border border-gray-800">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="search" className="block text-sm font-medium text-gray-300 mb-2">Search</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="search"
+                    placeholder="이름 또는 기술 스택으로 검색"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-4 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <i className="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                </div>
               </div>
-
-              <div className="scroll-fade member-card p-6 rounded-xl text-center card-hover">
-                  <div className="img-container mx-auto">
-                      <img src="https://via.placeholder.com/120/C5A8E6/FFFFFF?text=Member2" alt="Member 2 Profile" />
-                  </div>
-                  <h3 className="orbitron text-xl font-bold mb-2 text-white">이서연</h3>
-                  <p className="text-purple-300 mb-2">백엔드 개발자</p>
-                  <p className="text-sm text-gray-400">서버 및 데이터베이스 시스템 구축</p>
-                  <div className="flex justify-center space-x-4 mt-4">
-                      <a href="https://github.com/leeseoyeon" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400"><i className="fab fa-github"></i></a>
-                      <a href="https://portfolio.leeseoyeon.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400"><i className="fas fa-link"></i></a>
-                  </div>
+              <div>
+                <label htmlFor="filter-role" className="block text-sm font-medium text-gray-300 mb-2">Role</label>
+                <select
+                  id="filter-role"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-4 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  value={filterRole}
+                  onChange={(e) => setFilterRole(e.target.value)}
+                >
+                  <option value="">모든 역할</option>
+                  <option value="팀장">팀장</option>
+                  <option value="프론트엔드">프론트엔드</option>
+                  <option value="백엔드">백엔드</option>
+                  <option value="모바일">모바일</option>
+                  <option value="AI">AI</option>
+                </select>
               </div>
-
-              <div className="scroll-fade member-card p-6 rounded-xl text-center card-hover">
-                  <div className="img-container mx-auto">
-                      <img src="https://via.placeholder.com/120/A8E6C5/FFFFFF?text=Member3" alt="Member 3 Profile" />
-                  </div>
-                  <h3 className="orbitron text-xl font-bold mb-2 text-white">박지훈</h3>
-                  <p className="text-green-300 mb-2">데이터 과학자</p>
-                  <p className="text-sm text-gray-400">데이터 분석 및 인공지능 모델 개발</p>
-                  <div className="flex justify-center space-x-4 mt-4">
-                      <a href="https://github.com/parkjihun" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400"><i className="fab fa-github"></i></a>
-                      <a href="https://portfolio.parkjihun.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400"><i className="fas fa-link"></i></a>
-                  </div>
+            </div>
+            <div className="mt-6">
+              <label className="block text-sm font-medium text-gray-300 mb-2">Technology Tags</label>
+              <div id="tag-cloud" className="flex flex-wrap gap-2">
+                {[
+                  'React', 'JavaScript', 'Node.js', 'Python', 'Swift', 'Java',
+                  'Flutter', 'Vue.js', 'AI/ML'
+                ].map((tag) => (
+                  <button
+                    key={tag}
+                    className={`tag-btn px-3 py-1 rounded-full text-xs hover:bg-opacity-80 transition-colors
+                      ${getTagBgClass(tag)} ${activeTag === tag ? 'ring-2 ring-blue-400' : ''}`}
+                    onClick={() => handleTagClick(tag)}
+                  >
+                    {tag}
+                  </button>
+                ))}
               </div>
-
-              <div className="scroll-fade member-card p-6 rounded-xl text-center card-hover">
-                  <div className="img-container mx-auto">
-                      <img src="https://via.placeholder.com/120/E6A8C5/FFFFFF?text=Member4" alt="Member 4 Profile" />
-                  </div>
-                  <h3 className="orbitron text-xl font-bold mb-2 text-white">최예원</h3>
-                  <p className="text-pink-300 mb-2">모바일 앱 개발자</p>
-                  <p className="text-sm text-gray-400">iOS/Android 애플리케이션 개발</p>
-                  <div className="flex justify-center space-x-4 mt-4">
-                      <a href="https://github.com/choiyewon" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400"><i className="fab fa-github"></i></a>
-                      <a href="https://portfolio.choiyewon.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400"><i className="fas fa-link"></i></a>
-                  </div>
-              </div>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Current Members Section */}
+      <section id="current-members" className="py-16 bg-gradient-to-b from-transparent to-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="orbitron text-3xl md:text-4xl font-bold gradient-text mb-4">현재 멤버</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              TCP 팀의 현재 활동 중인 멤버들입니다.
+            </p>
+          </div>
+          
+          <div id="members-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {currentMembers.length > 0 ? (
+              currentMembers.map((member, index) => (
+                <div key={index} className="scroll-fade member-card p-6 rounded-xl text-center card-hover">
+                  <div className="img-container mx-auto">
+                    <img src={member.profileImageUrl} alt={`${member.name} Profile`} />
+                  </div>
+                  <h3 className="orbitron text-xl font-bold mb-2 text-white">{member.name}</h3>
+                  <p className={`${member.role === '팀장' ? 'text-blue-300' : member.role === 'AI' ? 'text-purple-300' : member.role === '백엔드' ? 'text-green-300' : 'text-pink-300'} mb-2`}>{member.role}</p>
+                  <p className="text-sm text-gray-400">{member.description}</p>
+                  <div className="flex flex-wrap justify-center gap-1 mt-3 mb-4">
+                    {member.tags.slice(0, 3).map((tag, tagIndex) => (
+                      <span key={tagIndex} className={`px-2 py-1 rounded-full text-xs ${getTagBgClass(tag)}`}>{tag}</span>
+                    ))}
+                  </div>
+                  <div className="flex justify-center space-x-4 mt-4">
+                    <a href={member.githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400"><i className="fab fa-github"></i></a>
+                    <a href={member.portfolioUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400"><i className="fas fa-link"></i></a>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12 text-gray-500">
+                <i className="fas fa-exclamation-circle text-5xl mb-4"></i>
+                <p className="text-xl">검색 결과가 없습니다.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Alumni Members Section */}
       <section id="alumni-members" className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="orbitron text-3xl md:text-4xl font-bold gradient-text mb-4">졸업생 및 전 멤버</h2>
+            <h2 className="orbitron text-3xl md:text-4xl font-bold gradient-text mb-4">졸업 멤버</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              TCP의 발전에 기여하고 현재 성공적인 커리어를 이어가고 있는 졸업생 및 전 멤버들입니다.
+              TCP 팀을 졸업하여 각자의 길을 걸어가고 있는 멤버들입니다.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              <div className="scroll-fade member-card p-6 rounded-xl text-center card-hover">
+          <div id="alumni-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {alumniMembers.length > 0 ? (
+              alumniMembers.map((member, index) => (
+                <div key={index} className="scroll-fade member-card p-6 rounded-xl text-center card-hover">
                   <div className="img-container mx-auto">
-                      <img src="https://via.placeholder.com/120/D8BFD8/FFFFFF?text=Alumni1" alt="Alumni 1 Profile" />
+                    <img src={member.profileImageUrl} alt={`${member.name} Profile`} />
                   </div>
-                  <h3 className="orbitron text-xl font-bold mb-2 text-white">김명수</h3>
-                  <p className="text-gray-400 mb-2">초대 회장 | 프론트엔드 개발자</p>
-                  <p className="text-sm text-gray-400">졸업 후 [회사명] 재직 중</p>
+                  <h3 className="orbitron text-xl font-bold mb-2 text-white">{member.name}</h3>
+                  <p className="text-gray-400 mb-2">{member.description}</p>
+                  <p className="text-sm text-gray-400">현재 {member.description.split('|')[1]?.trim() || ''}</p>
+                  <div className="flex flex-wrap justify-center gap-1 mt-3 mb-4">
+                    {member.tags.slice(0, 3).map((tag, tagIndex) => (
+                      <span key={tagIndex} className={`px-2 py-1 rounded-full text-xs ${getTagBgClass(tag)}`}>{tag}</span>
+                    ))}
+                  </div>
                   <div className="flex justify-center space-x-4 mt-4">
-                      <a href="https://github.com/kimmyungsoo" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400"><i className="fab fa-github"></i></a>
-                      <a href="https://link.kimmyungsoo.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400"><i className="fas fa-link"></i></a>
+                    <a href={member.githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400"><i className="fab fa-github"></i></a>
+                    <a href={member.portfolioUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400"><i className="fas fa-link"></i></a>
                   </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12 text-gray-500">
+                <i className="fas fa-exclamation-circle text-5xl mb-4"></i>
+                <p className="text-xl">검색 결과가 없습니다.</p>
               </div>
-
-              <div className="scroll-fade member-card p-6 rounded-xl text-center card-hover">
-                  <div className="img-container mx-auto">
-                      <img src="https://via.placeholder.com/120/A8D8D8/FFFFFF?text=Alumni2" alt="Alumni 2 Profile" />
-                  </div>
-                  <h3 className="orbitron text-xl font-bold mb-2 text-white">박은지</h3>
-                  <p className="text-gray-400 mb-2">부회장 | 데이터 과학자</p>
-                  <p className="text-sm text-gray-400">졸업 후 [회사명] 재직 중</p>
-                  <div className="flex justify-center space-x-4 mt-4">
-                      <a href="https://github.com/parkeunji" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400"><i className="fab fa-github"></i></a>
-                      <a href="https://link.parkeunji.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400"><i className="fas fa-link"></i></a>
-                  </div>
-              </div>
-
-              <div className="scroll-fade member-card p-6 rounded-xl text-center card-hover">
-                  <div className="img-container mx-auto">
-                      <img src="https://via.placeholder.com/120/E6C5A8/FFFFFF?text=Alumni3" alt="Alumni 3 Profile" />
-                  </div>
-                  <h3 className="orbitron text-xl font-bold mb-2 text-white">최현우</h3>
-                  <p className="text-gray-400 mb-2">활동 멤버 | 백엔드 개발자</p>
-                  <p className="text-sm text-gray-400">졸업 후 [회사명] 재직 중</p>
-                  <div className="flex justify-center space-x-4 mt-4">
-                      <a href="https://github.com/choihyunwoo" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400"><i className="fab fa-github"></i></a>
-                      <a href="https://link.choihyunwoo.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400"><i className="fas fa-link"></i></a>
-                  </div>
-              </div>
+            )}
           </div>
         </div>
       </section>

@@ -607,3 +607,87 @@ body {
    이렇게 하면 active일 때만 'active' 클래스가 추가되고, 아닐 때만 'text-gray-300'이 적용됩니다.
    active 클래스에 color: #ffffff가 직접 정의되어 있으므로 문제없이 작동합니다.
 */
+
+/* announcement_write.html 전용 스타일 */
+.form-card {
+    background: linear-gradient(135deg, var(--secondary-gray), var(--light-gray));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-input {
+    background-color: var(--light-gray);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(168, 197, 230, 0.1);
+    outline: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(168, 197, 230, 0.3);
+}
+
+.btn-secondary {
+    background: var(--light-gray);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--secondary-gray);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.category-chip {
+    background: var(--light-gray);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.category-chip:hover {
+    border-color: var(--accent-blue);
+}
+
+.category-chip.selected {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    border-color: var(--accent-purple);
+}
+
+.preview-modal {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.char-counter {
+    font-size: 0.875rem;
+    color: #9ca3af;
+}
+
+.char-counter.warning {
+    color: var(--accent-pink);
+}
+
+.toolbar-btn {
+    padding: 0.5rem;
+    background: var(--light-gray);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+}
+
+.toolbar-btn:hover {
+    background: var(--accent-blue);
+    color: var(--primary-black);
+}
