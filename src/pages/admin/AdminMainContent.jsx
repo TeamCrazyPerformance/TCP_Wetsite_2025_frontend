@@ -6,10 +6,10 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 function AdminMainContent() {
     // 통계 상태 관리
     const [stats, setStats] = useState({
-        activeMembers: 50,
-        completedProjects: 25,
-        competitionAwards: 15,
-        employmentRate: 90,
+        activeMembers: 120,
+        completedProjects: 60,
+        competitionAwards: 60,
+        employmentRate: 95,
     });
 
     // 사진 프리뷰 상태 관리

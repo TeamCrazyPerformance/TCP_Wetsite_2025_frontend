@@ -21,6 +21,7 @@ import AdminLayout from './components/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminMainContent from './pages/admin/AdminMainContent';
 import AdminRecruitment from './pages/admin/AdminRecruitment';
+import AdminAnnouncement from './pages/admin/AdminAnnouncement';
 
 // 모든 로직을 AppContent 컴포넌트로 이동
 function AppContent() {
@@ -64,6 +65,7 @@ function AppContent() {
             <Route index element={<AdminDashboard />} />
             <Route path="main" element={<AdminMainContent />} />
             <Route path="recruitment" element={<AdminRecruitment />} />
+            <Route path="announcement" element={<AdminAnnouncement />} />
         </Route>
       </Routes>
       {!isNonAdminLayout && <Footer />}

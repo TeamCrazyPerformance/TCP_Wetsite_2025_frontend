@@ -241,13 +241,13 @@ function About() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="stat-card">
-              <div className="text-3xl font-bold gradient-text mb-2 counter">2021</div>
+              <div className="text-3xl font-bold gradient-text mb-2 counter">2013</div>
               <div className="text-sm text-gray-400">창립년도</div>
               <i className="fas fa-calendar-alt text-blue-400 text-2xl mt-3"></i>
             </div>
 
             <div className="stat-card">
-              <div className="text-3xl font-bold gradient-text mb-2 counter">50+</div>
+              <div className="text-3xl font-bold gradient-text mb-2 counter">120+</div>
               <div className="text-sm text-gray-400">총 멤버수 (활동 + 졸업생)</div>
               <i className="fas fa-users text-purple-400 text-2xl mt-3"></i>
             </div>
@@ -259,7 +259,7 @@ function About() {
             </div>
 
             <div className="stat-card">
-              <div className="text-3xl font-bold gradient-text mb-2 counter">15+</div>
+              <div className="text-3xl font-bold gradient-text mb-2 counter">60+</div>
               <div className="text-sm text-gray-400">국내외 대회 수상</div>
               <i className="fas fa-trophy text-yellow-400 text-2xl mt-3"></i>
             </div>
@@ -267,7 +267,7 @@ function About() {
 
           <div className="grid md:grid-cols-2 gap-6 mt-6">
             <div className="stat-card">
-              <div className="text-3xl font-bold gradient-text mb-2 counter">25+</div>
+              <div className="text-3xl font-bold gradient-text mb-2 counter">60+</div>
               <div className="text-sm text-gray-400">프로젝트 완료 (내부 + 오픈소스)</div>
               <i className="fas fa-code-branch text-pink-400 text-2xl mt-3"></i>
             </div>
