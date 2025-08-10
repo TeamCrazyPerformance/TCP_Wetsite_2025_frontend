@@ -24,6 +24,9 @@ import Register from './pages/Register';
 import MyPageLayout from './components/MyPageLayout';
 import MyPageSidebar from './components/MyPageSidebar';
 import Profile from './pages/mypage/Profile';
+import MemberPageSetting from './pages/mypage/MemberPageSetting';
+import MyStudies from './pages/mypage/MyStudies';
+import MyTeams from './pages/mypage/MyTeams';
 
 // 관리자 페이지 관련 컴포넌트 임포트
 import AdminLayout from './components/AdminLayout';
@@ -73,6 +76,9 @@ function AppContent() {
         {/* 마이페이지 중첩 라우트 */}
         <Route path="/mypage" element={<MyPageLayout />}>
             <Route index element={<Profile />} />
+            <Route path="settings" element={<MemberPageSetting />} />
+            <Route path="studies" element={<MyStudies />} />
+            <Route path="teams" element={<MyTeams />} />
         </Route>
 
         {/* Admin Pages (중첩 라우트) */}
