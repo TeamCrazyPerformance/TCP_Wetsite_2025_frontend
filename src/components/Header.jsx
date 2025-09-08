@@ -1,55 +1,83 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom'; // useLocation 임포트
+import { NavLink } from 'react-router-dom';
 import logo from '../logo.svg';
 
-function Header() {
-  const location = useLocation(); // 현재 URL 위치 정보 가져오기
+function Header({ isScrolled }) {
+  const getNavLinkClass = ({ isActive }) =>
+    `nav-link orbitron text-sm font-medium ${
+      isActive ? 'active' : 'text-gray-300'
+    } hover:text-white`;
 
-  // 주어진 path가 현재 경로와 일치하는지 확인하는 헬퍼 함수
-  const isActive = (path) => {
-    // '/home' 대신 '/'를 사용하므로, '/' 경로일 때는 '/home'으로 간주하지 않습니다.
-    // 하지만, 메인 페이지 '/'는 특별히 처리하여 다른 모든 경로가 아닐 때 활성화되도록 할 수 있습니다.
-    // 여기서는 정확히 일치하는 경로만 활성화합니다. (e.g., /about만 About 활성화)
-    // 메인 페이지인 '/'는 다른 경로가 아니면 활성화되도록 특별 처리합니다.
-    if (path === '/') {
-      return location.pathname === '/';
-    }
-    return location.pathname === path;
-  };
+  const getLoginLinkClass = ({ isActive }) =>
+    `px-4 py-2 text-sm border ${
+      isActive ? 'border-gray-400 text-white' : 'border-gray-600 text-gray-300'
+    } rounded-lg hover:border-gray-400 transition-colors`;
+
+  const getRegisterLinkClass = ({ isActive }) =>
+    `px-4 py-2 text-sm rounded-lg transition-colors ${
+      isActive
+        ? 'bg-gradient-to-r from-blue-600 to-purple-600'
+        : 'bg-gradient-to-r from-blue-500 to-purple-500'
+    } hover:from-blue-600 hover:to-purple-600 text-white`;
 
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-90 backdrop-blur-md border-b border-gray-800">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 ${
+        isScrolled ? 'bg-black' : 'bg-black'
+      } backdrop-blur-md border-b border-gray-800 transition-colors duration-300`}
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo and Title */}
-          <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
+          <NavLink to="/" className="flex items-center space-x-3 flex-shrink-0">
             <div className="w-10 h-10">
-              <img src={logo} alt="TCP 로고" className="w-full h-full object-contain" />
+              <img
+                src={logo}
+                alt="TCP 로고"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
-              <h1 className="orbitron text-xl font-bold gradient-text text-left">TCP</h1>
-              <p className="text-xs text-gray-400 text-left">Team Crazy Performance</p>
+              <h1 className="orbitron text-xl font-bold gradient-text text-left">
+                TCP
+              </h1>
+              <p className="text-xs text-gray-400 text-left">
+                Team Crazy Performance
+              </p>
             </div>
-          </Link>
+          </NavLink>
 
           {/* Navigation */}
           <nav className="hidden md:flex space-x-6">
-            {/* isActive 헬퍼 함수를 사용하여 조건부 클래스 적용 */}
-            <Link to="/about" className={`nav-link orbitron text-sm font-medium ${isActive('/about') ? 'active' : 'text-gray-300'} hover:text-white`}>About</Link>
-            <Link to="/members" className={`nav-link orbitron text-sm font-medium ${isActive('/members') ? 'active' : 'text-gray-300'} hover:text-white`}>Members</Link>
-            <Link to="/recruitment" className={`nav-link orbitron text-sm font-medium ${isActive('/recruitment') ? 'active' : 'text-gray-300'} hover:text-white`}>Recruitment</Link>
-            <Link to="/announcement" className={`nav-link orbitron text-sm font-medium ${isActive('/announcement') ? 'active' : 'text-gray-300'} hover:text-white`}>Announcement</Link>
-            <Link to="/study" className={`nav-link orbitron text-sm font-medium ${isActive('/study') ? 'active' : 'text-gray-300'} hover:text-white`}>Study</Link>
-            <Link to="/team" className={`nav-link orbitron text-sm font-medium ${isActive('/team') ? 'active' : 'text-gray-300'} hover:text-white`}>Find Your Team</Link>
+            <NavLink to="/about" className={getNavLinkClass}>
+              About
+            </NavLink>
+            <NavLink to="/members" className={getNavLinkClass}>
+              Members
+            </NavLink>
+            <NavLink to="/recruitment" className={getNavLinkClass}>
+              Recruitment
+            </NavLink>
+            <NavLink to="/announcement" className={getNavLinkClass}>
+              Announcement
+            </NavLink>
+            <NavLink to="/study" className={getNavLinkClass}>
+              Study
+            </NavLink>
+            <NavLink to="/team" className={getNavLinkClass}>
+              Find Your Team
+            </NavLink>
           </nav>
 
-          {/* Login/Sign Up Links - 별도의 스타일 적용 (nav-link 아님) */}
+          {/* Login/Sign Up Links */}
           <div className="flex space-x-3">
-            <Link to="/login" className={`px-4 py-2 text-sm border ${isActive('/login') ? 'border-gray-400 text-white' : 'border-gray-600 text-gray-300'} rounded-lg hover:border-gray-400 transition-colors`}>Login</Link>
-            <Link to="/register" className={`px-4 py-2 text-sm rounded-lg transition-colors 
-                ${isActive('/register') ? 'bg-gradient-to-r from-blue-600 to-purple-600' : 'bg-gradient-to-r from-blue-500 to-purple-500'} 
-                hover:from-blue-600 hover:to-purple-600 text-white`}>Sign Up</Link>
+            <NavLink to="/login" className={getLoginLinkClass}>
+              Login
+            </NavLink>
+            <NavLink to="/register" className={getRegisterLinkClass}>
+              Sign Up
+            </NavLink>
           </div>
 
           {/* Mobile Menu Button */}

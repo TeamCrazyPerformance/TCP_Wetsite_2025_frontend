@@ -2,6 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
 
+const existingUsernames = ['admin', 'tcp_member', 'user123', 'developer'];
+const existingEmails = [
+  'admin@tcp.club',
+  'member@tcp.club',
+  'user@example.com',
+];
+const tcpMembers = [
+  { name: '김TCP', phone: '010-1234-5678' },
+  { name: '이Performance', phone: '010-2345-6789' },
+  { name: '박Developer', phone: '010-3456-7890' },
+];
+
 function Register() {
   // 폼 입력 필드 상태 관리
   const [username, setUsername] = useState('');
@@ -24,14 +36,8 @@ function Register() {
   const [usernameMessage, setUsernameMessage] = useState('');
   const [signupButtonEnabled, setSignupButtonEnabled] = useState(false);
 
-  // Mock database for demonstration (원본 HTML에서 가져옴)
-  const existingUsernames = ['admin', 'tcp_member', 'user123', 'developer'];
-  const existingEmails = ['admin@tcp.club', 'member@tcp.club', 'user@example.com'];
-  const tcpMembers = [
-    { name: '김TCP', phone: '010-1234-5678' },
-    { name: '이Performance', phone: '010-2345-6789' },
-    { name: '박Developer', phone: '010-3456-7890' },
-  ];
+  
+  
 
   // 사용자명 중복 확인 로직
   useEffect(() => {
@@ -63,10 +69,9 @@ function Register() {
     setSignupButtonEnabled(termsAgreed);
   }, [termsAgreed]);
 
-
   // 비밀번호 가시성 토글
   const togglePasswordVisibility = () => {
-    setShowPassword(prev => !prev);
+    setShowPassword((prev) => !prev);
   };
 
   // 폼 제출 핸들러
@@ -88,12 +93,13 @@ function Register() {
       return;
     }
     if (existingEmails.includes(email.toLowerCase())) {
-        alert('이미 사용중인 이메일입니다.');
-        return;
+      alert('이미 사용중인 이메일입니다.');
+      return;
     }
 
     // 비밀번호 강도 검사 (원본 HTML 로직)
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
       alert('비밀번호는 8자 이상이며, 영문, 숫자, 특수문자를 포함해야 합니다.');
       return;
@@ -101,28 +107,32 @@ function Register() {
 
     // TCP 부원 정보 유효성 검사 (원본 HTML 로직)
     if (isTcpMember) {
-      if (!tcpMemberFullName || !phoneNumber) { // tcpMemberFullName 사용
+      if (!tcpMemberFullName || !phoneNumber) {
+        // tcpMemberFullName 사용
         alert('TCP 회원 정보를 모두 입력해주세요.');
         return;
       }
       const memberExists = tcpMembers.some(
-        (member) => member.name === tcpMemberFullName && member.phone === phoneNumber
+        (member) =>
+          member.name === tcpMemberFullName && member.phone === phoneNumber
       );
       if (!memberExists) {
-        alert('입력하신 정보와 일치하는 TCP 회원을 찾을 수 없습니다. 정보를 다시 확인해주세요.');
+        alert(
+          '입력하신 정보와 일치하는 TCP 회원을 찾을 수 없습니다. 정보를 다시 확인해주세요.'
+        );
         return;
       }
-    } else { // TCP 부원이 아니라면, tcpMemberFullName과 phoneNumber는 필수가 아님
-        // 일반 회원가입 시에는 이름과 전화번호가 필수가 아니므로,
-        // 이 부분에 대한 별도 유효성 검사는 필요 없습니다.
-        // 만약 일반 회원도 이름이 필수라면, 별도의 userFullName 상태를 유지해야 합니다.
-        // 현재는 TCP 부원일 때만 이름/전화번호를 받으므로 이대로 진행합니다.
+    } else {
+      // TCP 부원이 아니라면, tcpMemberFullName과 phoneNumber는 필수가 아님
+      // 일반 회원가입 시에는 이름과 전화번호가 필수가 아니므로,
+      // 이 부분에 대한 별도 유효성 검사는 필요 없습니다.
+      // 만약 일반 회원도 이름이 필수라면, 별도의 userFullName 상태를 유지해야 합니다.
+      // 현재는 TCP 부원일 때만 이름/전화번호를 받으므로 이대로 진행합니다.
     }
 
-
     if (!termsAgreed) {
-        alert('이용약관 및 개인정보처리방침에 동의해야 합니다.');
-        return;
+      alert('이용약관 및 개인정보처리방침에 동의해야 합니다.');
+      return;
     }
 
     // 회원가입 처리 시뮬레이션
@@ -162,17 +172,30 @@ function Register() {
             {/* Top Branding */}
             <div className="text-center mb-8">
               <div className="w-16 h-16 mx-auto mb-4">
-                <img src={logo} alt="TCP 로고" className="w-full h-full object-contain" />
+                <img
+                  src={logo}
+                  alt="TCP 로고"
+                  className="w-full h-full object-contain"
+                />
               </div>
-              <h2 className="orbitron text-3xl md:text-4xl font-bold gradient-text">회원가입</h2>
-              <p className="text-gray-400 mt-2">Team Crazy Performance에 오신 것을 환영합니다</p>
+              <h2 className="orbitron text-3xl md:text-4xl font-bold gradient-text">
+                회원가입
+              </h2>
+              <p className="text-gray-400 mt-2">
+                Team Crazy Performance에 오신 것을 환영합니다
+              </p>
             </div>
 
             {/* Form */}
             <form id="signupForm" onSubmit={handleSubmit} className="space-y-6">
               {/* Username */}
               <div className="input-group">
-                <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1 text-left">사용자명</label>
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium text-gray-300 mb-1 text-left"
+                >
+                  사용자명
+                </label>
                 <div className="relative">
                   <input
                     type="text"
@@ -197,7 +220,10 @@ function Register() {
                   </div>
                 </div>
                 {usernameMessage && (
-                  <div id="usernameMessage" className={`text-sm mt-1 ${usernameAvailability === 'available' ? 'text-green-400' : 'text-red-500'} text-left`}>
+                  <div
+                    id="usernameMessage"
+                    className={`text-sm mt-1 ${usernameAvailability === 'available' ? 'text-green-400' : 'text-red-500'} text-left`}
+                  >
                     {usernameMessage}
                   </div>
                 )}
@@ -205,7 +231,12 @@ function Register() {
 
               {/* Password */}
               <div className="input-group">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1 text-left">비밀번호</label>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-300 mb-1 text-left"
+                >
+                  비밀번호
+                </label>
                 <div className="relative">
                   <input
                     type={showPassword ? 'text' : 'password'}
@@ -222,12 +253,19 @@ function Register() {
                     onClick={togglePasswordVisibility}
                   ></i>
                 </div>
-                <div className="text-sm text-gray-500 mt-1 text-left">8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다</div>
+                <div className="text-sm text-gray-500 mt-1 text-left">
+                  8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다
+                </div>
               </div>
 
               {/* Confirm Password Input */}
               <div className="input-group">
-                <label className="block text-sm font-medium text-gray-300 mb-2 text-left" htmlFor="reg-confirm-password">비밀번호 확인</label>
+                <label
+                  className="block text-sm font-medium text-gray-300 mb-2 text-left"
+                  htmlFor="reg-confirm-password"
+                >
+                  비밀번호 확인
+                </label>
                 <div className="relative">
                   <input
                     type="password"
@@ -244,7 +282,12 @@ function Register() {
 
               {/* Email Input */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2 text-left" htmlFor="reg-email">이메일</label>
+                <label
+                  className="block text-sm font-medium text-gray-300 mb-2 text-left"
+                  htmlFor="reg-email"
+                >
+                  이메일
+                </label>
                 <input
                   type="email"
                   id="reg-email"
@@ -285,7 +328,9 @@ function Register() {
                     checked={isTcpMember}
                     onChange={(e) => setIsTcpMember(e.target.checked)}
                   />
-                  <span className="ml-2 text-sm text-gray-300">현재 TCP 부원입니다</span>
+                  <span className="ml-2 text-sm text-gray-300">
+                    현재 TCP 부원입니다
+                  </span>
                 </label>
               </div>
 
@@ -294,7 +339,12 @@ function Register() {
                 <div id="tcpMemberFields" className="slide-down show">
                   <div className="space-y-4 pt-4 border-t border-gray-700">
                     <div>
-                      <label htmlFor="tcpMemberFullName" className="block text-sm font-medium text-gray-300 mb-1 text-left">이름</label>
+                      <label
+                        htmlFor="tcpMemberFullName"
+                        className="block text-sm font-medium text-gray-300 mb-1 text-left"
+                      >
+                        이름
+                      </label>
                       <input
                         type="text"
                         id="tcpMemberFullName"
@@ -306,7 +356,12 @@ function Register() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-300 mb-1 text-left">전화번호</label>
+                      <label
+                        htmlFor="phoneNumber"
+                        className="block text-sm font-medium text-gray-300 mb-1 text-left"
+                      >
+                        전화번호
+                      </label>
                       <input
                         type="tel"
                         id="phoneNumber"
@@ -319,7 +374,9 @@ function Register() {
                     </div>
                     <div className="text-sm text-purple-400 flex items-center space-x-1 text-left">
                       <i className="fas fa-info-circle"></i>
-                      <span>입력된 정보는 부원 목록과 대조하여 연동됩니다.</span>
+                      <span>
+                        입력된 정보는 부원 목록과 대조하여 연동됩니다.
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -337,8 +394,20 @@ function Register() {
                     onChange={(e) => setTermsAgreed(e.target.checked)}
                   />
                   <span className="ml-2 text-sm text-gray-300">
-                    <Link to="#" className="text-purple-400 hover:text-purple-300 underline">이용약관</Link> 및
-                    <Link to="#" className="text-purple-400 hover:text-purple-300 underline">개인정보처리방침</Link>에 동의합니다.
+                    <Link
+                      to="#"
+                      className="text-purple-400 hover:text-purple-300 underline"
+                    >
+                      이용약관
+                    </Link>{' '}
+                    및
+                    <Link
+                      to="#"
+                      className="text-purple-400 hover:text-purple-300 underline"
+                    >
+                      개인정보처리방침
+                    </Link>
+                    에 동의합니다.
                   </span>
                 </label>
               </div>
@@ -357,8 +426,14 @@ function Register() {
             </form>
 
             <div className="mt-6 text-center">
-              <p className="text-sm text-gray-400">이미 계정이 있으신가요?
-                <Link to="/login" className="text-purple-400 hover:text-purple-300 font-medium">로그인</Link>
+              <p className="text-sm text-gray-400">
+                이미 계정이 있으신가요?
+                <Link
+                  to="/login"
+                  className="text-purple-400 hover:text-purple-300 font-medium"
+                >
+                  로그인
+                </Link>
               </p>
             </div>
           </div>
