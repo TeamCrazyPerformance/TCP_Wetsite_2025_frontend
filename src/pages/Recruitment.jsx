@@ -78,7 +78,8 @@ function Recruitment() {
     // Process Projects
     const projectNames = formData.getAll('project_name');
     const projectContributions = formData.getAll('project_contribution');
-    const projectDates = formData.getAll('project_date');
+    const projectStartDates = formData.getAll('project_start_date');
+    const projectEndDates = formData.getAll('project_end_date');
     const projectDescriptions = formData.getAll('project_description');
     const projectTechStacks = formData.getAll('project_tech_stack');
 
@@ -86,7 +87,7 @@ function Recruitment() {
       data.projects.push({
         name: projectNames[index],
         contribution: projectContributions[index],
-        date: projectDates[index],
+        date: `${projectStartDates[index]} ~ ${projectEndDates[index]}`,
         description: projectDescriptions[index],
         techStack: projectTechStacks[index],
       });
@@ -592,12 +593,20 @@ function Recruitment() {
                           />
                         </label>
                         <label className="block text-sm font-medium text-gray-300 mt-2">
-                          발표년월:
-                          <input
-                            type="month"
-                            name="project_date"
-                            className="form-input mt-1"
-                          />
+                          진행 기간:
+                          <div className="flex items-center space-x-2">
+                            <input
+                              type="date"
+                              name="project_start_date"
+                              className="form-input mt-1"
+                            />
+                            <span>~</span>
+                            <input
+                              type="date"
+                              name="project_end_date"
+                              className="form-input mt-1"
+                            />
+                          </div>
                         </label>
                         <label className="block text-sm font-medium text-gray-300 mt-2">
                           프로젝트 내용:
@@ -670,9 +679,9 @@ function Recruitment() {
                           />
                         </label>
                         <label className="block text-sm font-medium text-gray-300 mt-2">
-                          수상 년월:
+                          수상 년월일:
                           <input
-                            type="month"
+                            type="date"
                             name="award_date"
                             className="form-input mt-1"
                           />
