@@ -182,7 +182,11 @@ function AdminRecruitment() {
           </h3>
           <div className="flex items-center space-x-4">
             <div
-              className={`status-badge ${settings.applyButtonEnabled && isInPeriod ? 'status-active' : 'status-inactive'}`}
+              className={`status-badge ${
+                settings.applyButtonEnabled && isInPeriod
+                  ? 'status-active'
+                  : 'status-inactive'
+              }`}
               id="currentStatus"
             >
               <FontAwesomeIcon
@@ -271,7 +275,11 @@ function AdminRecruitment() {
               </div>
               <div
                 id="buttonStatusDisplay"
-                className={`status-badge ${settings.applyButtonEnabled ? 'status-active' : 'status-inactive'} mb-4`}
+                className={`status-badge ${
+                  settings.applyButtonEnabled
+                    ? 'status-active'
+                    : 'status-inactive'
+                } mb-4`}
               >
                 <FontAwesomeIcon
                   icon={settings.applyButtonEnabled ? faEye : faEyeSlash}
@@ -302,15 +310,13 @@ function AdminRecruitment() {
               <h4 className="orbitron text-xl font-bold text-blue-300">
                 지원 버튼 제어
               </h4>
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  id="applyButtonToggle"
-                  checked={settings.applyButtonEnabled}
-                  onChange={toggleApplyButton}
-                />
-                <span className="toggle-slider"></span>
-              </label>
+              <div
+                className={`toggle-switch ${
+                  settings.applyButtonEnabled ? 'active' : ''
+                }`}
+                onClick={toggleApplyButton}
+                id="applyButtonToggle"
+              ></div>
             </div>
 
             <div className="space-y-4">
@@ -400,13 +406,21 @@ function AdminRecruitment() {
                     남은 기간:{' '}
                     <span
                       id="remainingDays"
-                      className={`font-semibold ${isUpcoming ? 'text-blue-400' : isInPeriod ? 'text-green-400' : 'text-red-400'}`}
+                      className={`font-semibold ${
+                        isUpcoming
+                          ? 'text-blue-400'
+                          : isInPeriod
+                          ? 'text-green-400'
+                          : 'text-red-400'
+                      }`}
                     >
                       {isUpcoming
                         ? `${periodCalc.remainingDays}일 후 시작`
                         : isInPeriod
-                          ? `${periodCalc.remainingDays}일`
-                          : `${Math.abs(periodCalc.remainingDays)}일 전 종료`}
+                        ? `${periodCalc.remainingDays}일`
+                        : `${Math.abs(
+                            periodCalc.remainingDays
+                          )}일 전 종료`}
                     </span>
                   </div>
                 </div>
@@ -435,7 +449,9 @@ function AdminRecruitment() {
                 </h5>
               </div>
               <div
-                className={`preview-button-${settings.applyButtonEnabled ? 'active' : 'inactive'} orbitron`}
+                className={`preview-button-${
+                  settings.applyButtonEnabled ? 'active' : 'inactive'
+                } orbitron`}
               >
                 <FontAwesomeIcon icon={faPlay} className="mr-2" />
                 지금 지원하기
@@ -511,15 +527,13 @@ function AdminRecruitment() {
                       모집 종료일이 지나면 자동으로 지원 버튼을 비활성화합니다
                     </div>
                   </div>
-                  <label className="toggle-switch">
-                    <input
-                      type="checkbox"
-                      id="autoDisableToggle"
-                      checked={settings.autoDisable}
-                      onChange={toggleAutoDisable}
-                    />
-                    <span className="toggle-slider"></span>
-                  </label>
+                  <div
+                    className={`toggle-switch ${
+                      settings.autoDisable ? 'active' : ''
+                    }`}
+                    onClick={toggleAutoDisable}
+                    id="autoDisableToggle"
+                  ></div>
                 </div>
 
                 <div className="flex items-center justify-between p-4 bg-pink-900 bg-opacity-20 rounded-lg">
@@ -531,15 +545,13 @@ function AdminRecruitment() {
                       모집 시작일이 되면 자동으로 지원 버튼을 활성화합니다
                     </div>
                   </div>
-                  <label className="toggle-switch">
-                    <input
-                      type="checkbox"
-                      id="autoEnableToggle"
-                      checked={settings.autoEnable}
-                      onChange={toggleAutoEnable}
-                    />
-                    <span className="toggle-slider"></span>
-                  </label>
+                  <div
+                    className={`toggle-switch ${
+                      settings.autoEnable ? 'active' : ''
+                    }`}
+                    onClick={toggleAutoEnable}
+                    id="autoEnableToggle"
+                  ></div>
                 </div>
               </div>
             </div>
