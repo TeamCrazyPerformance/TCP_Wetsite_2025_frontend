@@ -30,7 +30,8 @@ import Terms from './pages/Terms';
 // 마이페이지 관련 컴포넌트 임포트
 import MyPageLayout from './components/MyPageLayout';
 import Profile from './pages/mypage/Profile';
-import MemberPageSetting from './pages/mypage/MemberPageSetting';
+import MyPageSettings from './pages/mypage/MyPageSettings';
+import MyPageAccountSettings from './pages/mypage/MyPageAccountSettings';
 import MyStudies from './pages/mypage/MyStudies';
 import MyTeams from './pages/mypage/MyTeams';
 import Withdraw from './pages/mypage/Withdraw';
@@ -97,7 +98,8 @@ function AppContent() {
         {/* 마이페이지 중첩 라우트 */}
         <Route path="/mypage" element={<MyPageLayout />}>
           <Route index element={<Profile />} />
-          <Route path="settings" element={<MemberPageSetting />} />
+          <Route path="settings" element={<MyPageSettings />} />
+          <Route path="account-settings" element={<MyPageAccountSettings />} />
           <Route path="studies" element={<MyStudies />} />
           <Route path="teams" element={<MyTeams />} />
           <Route path="withdraw" element={<Withdraw />} />

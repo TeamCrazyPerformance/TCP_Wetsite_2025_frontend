@@ -82,8 +82,8 @@ function MyPageSidebar() {
             <span className="ml-2">계정 설정</span>
           </Link>
           <Link
-            to="/mypage/withdrawal"
-            className={`sidebar-link ${isActive('/mypage/withdrawal') ? 'text-red-400' : ''}`}
+            to="/mypage/withdraw"
+            className={`sidebar-link ${isActive('/mypage/withdraw') ? 'text-red-400' : ''}`}
           >
             <FontAwesomeIcon icon={faSignOutAlt} />
             <span className="ml-2">탈퇴 신청</span>
