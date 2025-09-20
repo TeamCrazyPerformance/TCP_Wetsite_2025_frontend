@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
+import { stats } from '../data/stats';
 
 function About() {
   // 아코디언 인덱스 상태 관리
@@ -279,7 +280,7 @@ function About() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="stat-card">
               <div className="text-3xl font-bold gradient-text mb-2 counter">
-                2013
+                {stats.foundingYear}
               </div>
               <div className="text-sm text-gray-400">창립년도</div>
               <i className="fas fa-calendar-alt text-blue-400 text-2xl mt-3"></i>
@@ -287,7 +288,7 @@ function About() {
 
             <div className="stat-card">
               <div className="text-3xl font-bold gradient-text mb-2 counter">
-                120+
+                {stats.totalMembers}+
               </div>
               <div className="text-sm text-gray-400">
                 총 멤버수 (활동 + 졸업생)
@@ -297,7 +298,7 @@ function About() {
 
             <div className="stat-card">
               <div className="text-3xl font-bold gradient-text mb-2 counter">
-                30+
+                {stats.studyGroups}+
               </div>
               <div className="text-sm text-gray-400">기술 스터디 그룹</div>
               <i className="fas fa-book text-green-400 text-2xl mt-3"></i>
@@ -305,7 +306,7 @@ function About() {
 
             <div className="stat-card">
               <div className="text-3xl font-bold gradient-text mb-2 counter">
-                60+
+                {stats.awards}+
               </div>
               <div className="text-sm text-gray-400">국내외 대회 수상</div>
               <i className="fas fa-trophy text-yellow-400 text-2xl mt-3"></i>
@@ -315,7 +316,7 @@ function About() {
           <div className="grid md:grid-cols-2 gap-6 mt-6">
             <div className="stat-card">
               <div className="text-3xl font-bold gradient-text mb-2 counter">
-                60+
+                {stats.projects}+
               </div>
               <div className="text-sm text-gray-400">
                 프로젝트 완료 (내부 + 오픈소스)
@@ -325,7 +326,7 @@ function About() {
 
             <div className="stat-card">
               <div className="text-3xl font-bold gradient-text mb-2 counter">
-                95%
+                {stats.employmentRate}%
               </div>
               <div className="text-sm text-gray-400">졸업생 IT 취업률</div>
               <i className="fas fa-briefcase text-cyan-400 text-2xl mt-3"></i>

@@ -12,14 +12,15 @@ import {
   faUndo,
   faDownload,
 } from '@fortawesome/free-solid-svg-icons';
+import { stats as initialStats } from '../../data/stats';
 
 function AdminMainContent() {
   // 통계 상태 관리
   const [stats, setStats] = useState({
-    activeMembers: 120,
-    completedProjects: 60,
-    competitionAwards: 60,
-    employmentRate: 95,
+    activeMembers: initialStats.totalMembers,
+    completedProjects: initialStats.projects,
+    competitionAwards: initialStats.awards,
+    employmentRate: initialStats.employmentRate,
   });
 
   // 사진 프리뷰 상태 관리
@@ -67,9 +68,25 @@ function AdminMainContent() {
 
   // 모든 통계 저장
   const saveStatistics = () => {
-    console.log('Saving statistics:', stats);
-    alert('통계가 성공적으로 저장되었습니다!');
-    // 실제로는 여기에 API 호출 로직이 들어갑니다.
+    // 중요: 이 기능은 데모용입니다.
+    // create-react-app으로 만들어진 프론트엔드 애플리케이션은
+    // 브라우저에서 서버의 파일을 직접 수정할 수 없습니다.
+    // 실제 운영 환경에서는 이 함수 내에서 서버 API를 호출하여
+    // 데이터베이스나 파일 시스템에 데이터를 저장해야 합니다.
+    const content = `export const stats = {
+  foundingYear: ${initialStats.foundingYear},
+  totalMembers: ${stats.activeMembers},
+  studyGroups: ${initialStats.studyGroups}, // 이 값은 현재 관리자 페이지에서 수정되지 않습니다.
+  awards: ${stats.competitionAwards},
+  projects: ${stats.completedProjects},
+  employmentRate: ${stats.employmentRate},
+};`;
+
+    console.log('--- src/data/stats.js 파일에 저장될 내용 ---');
+    console.log(content);
+    alert(
+      '통계 저장 버튼이 클릭되었습니다. 콘솔에서 저장될 내용을 확인하세요. 실제 파일 저장은 백엔드 기능이 필요합니다.'
+    );
   };
 
   // 모든 사진 저장

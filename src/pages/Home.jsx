@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
+import { stats } from '../data/stats';
 
 function Home() {
   useEffect(() => {
@@ -170,25 +171,25 @@ function Home() {
                 <div className="grid grid-cols-2 gap-6 text-center">
                   <div>
                     <div className="text-3xl font-bold gradient-text mb-2">
-                      120+
+                      {stats.totalMembers}+
                     </div>
                     <div className="text-sm text-gray-400">활동 회원</div>
                   </div>
                   <div>
                     <div className="text-3xl font-bold gradient-text mb-2">
-                      60+
+                      {stats.projects}+
                     </div>
                     <div className="text-sm text-gray-400">프로젝트 완료</div>
                   </div>
                   <div>
                     <div className="text-3xl font-bold gradient-text mb-2">
-                      60+
+                      {stats.awards}+
                     </div>
                     <div className="text-sm text-gray-400">대회 수상</div>
                   </div>
                   <div>
                     <div className="text-3xl font-bold gradient-text mb-2">
-                      95%
+                      {stats.employmentRate}%
                     </div>
                     <div className="text-sm text-gray-400">취업 성공률</div>
                   </div>
